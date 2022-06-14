@@ -291,6 +291,17 @@ app.put("/leave-application-emp/:id/leave-balance/", (req, res) => {
   // res.send(employees.leaveBalance)
 });
 
+// change or update password password
+app.put("/employee/:id/profile/update-password", (req, res) => {
+  employees.findByIdAndUpdate(
+    req.params.id,
+    { $set: { Password: req.body.Password } },
+    function (err, response) {
+      res.send(response);
+    }
+  );
+});
+
 //getting employee information for profile module
 app.get("/employee/:id/profile", (req, res) => {
   employees.findById({ _id: req.params.id }, function (err, employee) {
@@ -303,7 +314,6 @@ app.get("/employee/:id/profile", (req, res) => {
 });
 
 //Getting Leave balance from employee record to display
-
 app.get("/leave-application-emp/:id/leave-balance", (req, res) => {
   employees.findById({ _id: req.params.id }, function (err, employee) {
     if (err) {
